@@ -12,10 +12,17 @@ function Todos ({state, id, todo}:TodoState) {
         setTodos(form)
       }
 
+    const deletes = (del:TodoState['todo']) => {
+        const deleteIndex = todos.findIndex((todo) => del === todo.todo)
+        const deleteform = [...todos.slice(0,deleteIndex), ...todos.slice(deleteIndex+1)]
+        setTodos(deleteform)
+    }
+
     return (<li>{todo}
           {state !== Catagories.TO_DO && <button onClick={()=>onClick(Catagories.TO_DO)}>TO_DO</button>}
           {state !== Catagories.Doing && <button onClick={()=>onClick(Catagories.Doing)}>Doing</button>}
           {state !== Catagories.Done && <button onClick={()=>onClick(Catagories.Done)}>Done</button>}
+          <button onClick={()=>deletes(todo)}>Delete</button>
           </li>)
       ;
 }
